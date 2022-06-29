@@ -1,0 +1,29 @@
+{
+    "name": "SDGWebStatistics",
+    "description": "Automate sending SDG web statistics",
+    "version": "1.6.0",
+    "theme": false,
+    "require": {
+        "piwik": ">=4.0.0-b1,<5.0.0-b1"
+    },
+    "authors": [
+        {
+            "name": "AUTHOR",
+            "email": "",
+            "homepage": ""
+        }
+    ],
+    "support": {
+        "email": "",
+        "issues": "",
+        "forum": "",
+        "irc": "",
+        "wiki": "",
+        "source": "",
+        "docs": "",
+        "rss": ""
+    },
+    "homepage": "",
+    "license": "GPL v3+",
+    "keywords": []
+}

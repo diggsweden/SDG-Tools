@@ -1,0 +1,43 @@
+{% extends 'admin.twig' %}
+
+{% block content %}
+    <div ng-controller="SDGWebStatisticsController as vm">
+        {% if settingsSet %}
+            <div piwik-content-block content-title="{{ 'SDGWebStatistics_PreviousRequestsTitle' | translate }}" help-url="https://matomo.org">
+                <p>{{ 'SDGWebStatistics_PreviousRequestsDescription' | translate }}</p>      
+                <table piwik-content-table>
+                    <thead>
+                        <tr>
+                            {% for field in requestInfoFields %}
+                                <th>{{ "SDGWebStatistics_#{field}" | translate }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if requestInfo %}
+                            {% for info in requestInfo %}
+                                <tr>
+                                {% for field in requestInfoFields %}
+                                    <td>{{ info[field] }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <div piwik-content-block content-title="{{ 'SDGWebStatistics_TriggerRequestTitle' | translate }}" help-url="https://matomo.org">
+                <p>{{ 'SDGWebStatistics_TriggerRequestDescription' | translate }}</p>
+                <button class="btn btn-large" ng-disabled="vm.sendApiRequestLoading" ng-click="vm.sendApiRequest()">{{ 'SDGWebStatistics_TriggerRequestButton' | translate }}</button>
+                {% verbatim %}
+                    <div piwik-activity-indicator loading="vm.sendApiRequestLoading"></div>
+                {% endverbatim %}
+            </div>
+        {% else %}
+            <div piwik-alert="danger">
+                <strong>{{ 'General_Error' | translate }}!</strong>
+                {{ 'SDGWebStatistics_NoSettingsError' | translate }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+    "SDGWebStatistics": {
+        "SDGWebStatisticsReport": "SDG webstatistik arkivrapport",
+        "SDGWebStatistics": "SDG webstatistik",
+        "PreviousRequestsTitle": "Tidigare inskick",
+        "PreviousRequestsDescription": "De senaste 10 inskicken av SDG webstatistik.",
+        "period_id": "Unikt id",
+        "start_date": "Startdatum",
+        "end_date": "Slutdatum",
+        "status": "Responsstatus",
+        "date": "Inskicksdatum",
+        "TriggerRequestTitle": "Trigga inskick",
+        "TriggerRequestDescription": "Trigga ett manuellt inskick av SDG webstatistik för förra månaden.",
+        "TriggerRequestButton": "Skicka statistik",
+        "NoSettingsError": "You must set settings for this plugin to work properly. Set this in Administration -> System -> General settings."
+    }
+}

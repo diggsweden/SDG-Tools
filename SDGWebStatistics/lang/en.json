@@ -1,0 +1,17 @@
+{
+    "SDGWebStatistics": {
+        "SDGWebStatisticsReport": "SDG web statistics archive report",
+        "SDGWebStatistics": "SDG web statistics",
+        "PreviousRequestsTitle": "Previous Requests",
+        "PreviousRequestsDescription": "The lasts 10 requests to send SDG web statistics.",
+        "period_id": "Unique id",
+        "start_date": "Start date",
+        "end_date": "End date",
+        "status": "Response status",
+        "date": "Transfer date",
+        "TriggerRequestTitle": "Trigger request",
+        "TriggerRequestDescription": "Manually trigger sending SDG web statistics for last month to the api.",
+        "TriggerRequestButton": "Send request",
+        "NoSettingsError": "You must set settings for this plugin to work properly. Set this in Administration -> System -> General settings."
+    }
+}
