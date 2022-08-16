@@ -31,7 +31,10 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     public $siteId;
 
     /** @var Setting */
-    public $apiUrl;
+    public $uniqueIdUrl;
+
+    /** @var Setting */
+    public $statisticsUrl;
 
     /** @var Setting */
     public $pageTitleIdentifier;
@@ -46,11 +49,12 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     {
         $this->apiKey = $this->createApiKeySetting();
         $this->siteId = $this->createSiteIdSetting();
-        $this->apiUrl = $this->createApiUrlSetting();
+        $this->uniqueIdUrl = $this->createUniqueIdUrlSetting();
+        $this->statisticsUrl = $this->createStatisticsUrlSetting();
         $this->pageTitleIdentifier = $this->createPageTitleIdentifierSetting();
         $this->emailRecipients = $this->createEmailRecipientsSetting();
         
-        $this->mandatoryFields = [ $this->apiKey, $this->siteId, $this->apiUrl ];
+        $this->mandatoryFields = [ $this->apiKey, $this->siteId, $this->uniqueIdUrl, $this->statisticsUrl ];
     }
 
     private function createApiKeySetting()
@@ -78,17 +82,29 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         });
     }
     
-    private function createApiUrlSetting()
+    private function createUniqueIdUrlSetting()
     {
         $default = '';
 
-        return $this->makeSetting('apiUrl', $default, FieldConfig::TYPE_STRING, function (FieldConfig $field) {
-            $field->title = 'API URL';
+        return $this->makeSetting('uniqueIdUrl', $default, FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+            $field->title = 'Unique ID URL';
             $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
-            $field->description = 'URL for SDG-API requests.';
+            $field->description = 'URL to get unique-id from SDG-API.';
             $field->validators[] = new NotEmpty();
         });
     }
+
+    private function createStatisticsUrlSetting()
+        {
+            $default = '';
+
+            return $this->makeSetting('statisticsUrl', $default, FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+                $field->title = 'Statistics URL';
+                $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
+                $field->description = 'URL to post statistics to SDG-API.';
+                $field->validators[] = new NotEmpty();
+            });
+        }
 
     private function createPageTitleIdentifierSetting()
     {
@@ -118,7 +134,11 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     {
         $set = true;
         for ($i = 0; $i <= \count($this->mandatoryFields) - 1 && $set; $i++) {
-            $set = !!$this->mandatoryFields[$i]->getValue();
+            if (!isset($this->mandatoryFields[$i])) {
+                $set = false;
+            } else {
+                $set = !!$this->mandatoryFields[$i]->getValue();
+            }
         }
 
         return $set;
