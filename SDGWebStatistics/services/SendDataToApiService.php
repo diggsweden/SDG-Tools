@@ -83,18 +83,16 @@ class SendDataToApiService
     /**
      * Sends a curl request to the sdgApi
      * 
-     * @param string $path Path to the api request, starting with a "/" eg. /unique-id
+     * @param string $url Path to the api request, starting with a "/" eg. /unique-id
      * @param string $httpMethod Should be "GET" or "POST"
      * @param string|null $requestBody The content that should be sent with a POST request
      * 
      * @return array Containing the result and httpStatus of the request
      */
-    private function sendSdgRequest(string $path, string $httpMethod, string $requestBody = null)    
+    private function sendSdgRequest(string $url, string $httpMethod, string $requestBody = null)
     {
-        $sdgApiUrl = $this->settings->apiUrl->getValue();
         $sdgApiKey = $this->settings->apiKey->getValue();
 
-        $url = $sdgApiUrl . $path;
         $headers = array(
             "x-api-key: " . $sdgApiKey,
             "Content-type: application/json"
@@ -150,7 +148,7 @@ class SendDataToApiService
         if ($requestInfo) {
             $periodId = $requestInfo[SqlService::PERIOD_ID_FIELD];
         } else {
-            $responses[self::UNIQUE_ID_PATH] = $this->sendSdgRequest(self::UNIQUE_ID_PATH, "GET");
+            $responses[self::UNIQUE_ID_PATH] = $this->sendSdgRequest($this->settings->uniqueIdUrl->getValue(), "GET");
             if ($responses[self::UNIQUE_ID_PATH]["status"] == 200) {
                 $periodId = \json_decode($responses[self::UNIQUE_ID_PATH]["data"]);
             }
@@ -162,7 +160,7 @@ class SendDataToApiService
             $referencePeriod = new StatisticsReferencePeriod($periodStart, $periodEnd);
             $requestBody = \json_encode(new StatisticsRequestBody($periodId, $referencePeriod, $sources), \JSON_UNESCAPED_SLASHES);
 
-            $responses[self::INFORMATION_SERVICES_STATISTICS_PATH] = $this->sendSdgRequest(self::INFORMATION_SERVICES_STATISTICS_PATH, "POST", $requestBody);
+            $responses[self::INFORMATION_SERVICES_STATISTICS_PATH] = $this->sendSdgRequest($this->settings->statisticsUrl->getValue(), "POST", $requestBody);
             $httpStatus = $responses[self::INFORMATION_SERVICES_STATISTICS_PATH]["status"];
         } else {
             $periodId = SqlService::PERIOD_ID_MISSING;

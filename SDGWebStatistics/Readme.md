@@ -21,7 +21,8 @@ För att pluginet ska fungera måste settings vara satta.
 Endast användare med superadmin-rättigheter kan uppdatera settings.
 De settings som finns är följande:
 - API Key – API-nyckel för authentisering som sätts i headern i api-anropet.
-- API Url – Url:en till apiet.
+- Unique ID Url – URL för att hämta unikt id från SDG som används vid postning av statistik.
+- Statistics URL – URL till SDG för att posta statistik.
 - Site ID – ID:t till siten som statistiken ska tas ifrån. Default är 1.
 - PageTitleIdentifier (Optional) En sträng som används för att identifiera sidorna som ska samlas in. Om denna inte är satt så kommer statistik att samlas in för alla sidor på den valda siten. På FK har vi satt ett meta-fält i headern, <meta name="sdg-tag" content="sdg">, för att identifiera vilka sidor som ingår i SDG och sätter då denna setting till SDG.
 

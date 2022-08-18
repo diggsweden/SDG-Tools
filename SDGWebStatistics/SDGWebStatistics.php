@@ -51,7 +51,7 @@ class SDGWebStatistics extends \Piwik\Plugin
             return;
         }
 
-        $url = $settings->apiUrl->getValue();
+        $url = $settings->statisticsUrl->getValue();
         if (\strpos($aUrl, $url) !== false && $status !== 200) {
             $errorInfo = array(
                 "aUrl" => $aUrl,
